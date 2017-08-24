@@ -1,9 +1,17 @@
-# HANetwork
+HANetwork
+=========
 It's a Alamofire basic requestes wrapper
 
-### Make requests
-It's simple create new request, only create enum and apply to protocol URLRequestConvertible
+This wrapping can help you to use the `Alamofire` library in a very simple way, Follow the steps:
+- Make requests with `URLRequestConvertible`
+- Call method from any `ViewController` and receive three possible cases:
+    - Success as single object, data response type `[String: Any]`
+    - Success as collection of objects, data response type `[String: Any]`
+    - Error as tuple of `(NSError, Data)`, if you want parse response body from server.
 
+#### Usage
+-------------------
+Make `URLRequestConvertible` enum:
 ```swift
 
 import Alamofire
@@ -40,4 +48,22 @@ enum DemoRouter: URLRequestConvertible {
         return urlRequest
     }
 }
+```
+Call from ViewController:
+```swift 
+network.request(router: DemoRouter.getPostInfo(["your_params_here":"param"])) { (result) in            
+           
+           switch result {                
+            case .success(.array (let response)):
+                    debugPrint("Single: ----> \(response)")
+                
+            case .success(.object (let response)):
+                    debugPrint("Collection: ----> \(response)")
+                
+            case .error(.basic (let error)):
+                debugPrint("Error: \(error)")
+                
+            }
+        }
+
 ```
