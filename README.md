@@ -50,6 +50,11 @@ enum DemoRouter: URLRequestConvertible {
 }
 ```
 Call from ViewController:
+1. Instance wrapper:
+```swift
+var network: RealNetworkRequest = RealNetworkRequest(session: NetworkSessionManager.shared)
+```
+2. Calling your `URLRequestConvertible`:
 ```swift 
 network.request(router: DemoRouter.getPostInfo(["your_params_here":"param"])) { (result) in            
            
@@ -66,4 +71,22 @@ network.request(router: DemoRouter.getPostInfo(["your_params_here":"param"])) { 
             }
         }
 
+```
+You have three methods for call Wrapper:
+```swift
+    // Basic
+    func request(router: URLRequestConvertible,
+                 completion: @escaping (Result<Json, NetworkError>) -> Void) -> Void
+    
+    // With RequestAdapter, for custom Headers
+    func request(router: URLRequestConvertible,
+                 adapter: RequestAdapter?,
+                 completion: @escaping (Result<Json, NetworkError>) -> Void) -> Void
+    
+    // Or more customizable params and data
+    func request( _ url: URL,
+                  method: HTTPMethod,
+                  parameters: [String: Any]?,
+                  headers: [String: String]?,
+                  completion: @escaping (Result<Json, NetworkError>) -> Void) -> Void
 ```
