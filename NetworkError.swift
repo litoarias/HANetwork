@@ -18,13 +18,14 @@ typealias ErrorObject = (NSError, Data?)
 
 enum NetworkError {
     
-    case basicError(_: ErrorObject)
+    case basic(_: ErrorObject)
     
-    init?(error: NSError, data: Data?) {
-        
-        let errorObject: ErrorObject = (error, data)
-        
-        self = .basicError(errorObject)
-        
+    init?(error: NSError?, data: Data?) {
+        guard error == nil, data == nil else {
+            let errorObject: ErrorObject = (error!, data)
+            self = .basic(errorObject)
+            return
+        }
+        return nil
     }
 }
