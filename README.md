@@ -60,10 +60,10 @@ network.request(router: DemoRouter.getPostInfo(["your_params_here":"param"])) { 
            
            switch result {                
             case .success(.array (let response)):
-                    debugPrint("Single: ----> \(response)")
+                    debugPrint("Collection: ----> \(response)")
                 
             case .success(.object (let response)):
-                    debugPrint("Collection: ----> \(response)")
+                    debugPrint("Single: ----> \(response)")
                 
             case .error(.basic (let error)):
                 debugPrint("Error: \(error)")
