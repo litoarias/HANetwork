@@ -20,14 +20,13 @@ class NetworkSessionManager: SessionManager {
         return instance
     }()
     
-    var sessionManager: SessionManager = {
+    var sessionManager: Alamofire.SessionManager = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
         configuration.timeoutIntervalForRequest = 30
         let sessionManager = Alamofire.SessionManager(configuration: configuration)
         
-        return sessionManager
-        
+        return sessionManager        
     }()
     
     init() {
