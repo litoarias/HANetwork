@@ -8,7 +8,7 @@
 
 import Alamofire
 
-protocol NetworkRequest {
+protocol HARequestable {
     
     func request(router: URLRequestConvertible,
                  completion: @escaping (Result<Json, NetworkError>) -> Void) -> Void

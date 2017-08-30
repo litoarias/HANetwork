@@ -32,7 +32,6 @@ class NetworkSessionManager: SessionManager {
     
     init() {
         super.init()
-        
         manager?.listener = { [weak self] status in
             switch status {
             case .notReachable, .unknown:
@@ -44,7 +43,6 @@ class NetworkSessionManager: SessionManager {
                 }
             }
         }
-        
         manager?.startListening()
     }
 }

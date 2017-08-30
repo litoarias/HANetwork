@@ -9,18 +9,18 @@
 import Alamofire
 
 
-/// `JsonParser` Manage if request is Success or Failure
+/// `HAResponsable` Manage if request is Success or Failure
 ///
 /// `response` It's Alamofire DataReponse Object, what contains all response info
 ///  - Use response for manage Error or Succes response
 
 
-protocol JsonParser {
+protocol HAResponsable {
     
     func parseResponseServer(response: DataResponse<Any>, completion: @escaping (Result<Json, NetworkError>) -> Void)
 }
 
-extension JsonParser where Self: RealNetworkRequest {
+extension HAResponsable where Self: Network {
     
     func parseResponseServer(response: DataResponse<Any>, completion: @escaping (Result<Json, NetworkError>) -> Void) {
         if let value = response.result.value, let result = Json(json: value) {

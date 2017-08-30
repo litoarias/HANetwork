@@ -8,7 +8,7 @@
 
 import Alamofire
 
-class RealNetworkRequest: NetworkRequest, JsonParser {
+class Network: HARequestable, HAResponsable {
     
     var manager: NetworkSessionManager
     
