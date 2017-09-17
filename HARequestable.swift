@@ -11,15 +11,15 @@ import Alamofire
 protocol HARequestable {
     
     func request(router: URLRequestConvertible,
-                 completion: @escaping (Result<Json, NetworkError>) -> Void) -> Void
+                 completion: @escaping (Result<Json, NetworkError>) -> Void) -> Request
     
     func request(router: URLRequestConvertible,
                  adapter: RequestAdapter?,
-                 completion: @escaping (Result<Json, NetworkError>) -> Void) -> Void
+                 completion: @escaping (Result<Json, NetworkError>) -> Void) -> Request
     
     func request( _ url: URL,
                   method: HTTPMethod,
                   parameters: [String: Any]?,
                   headers: [String: String]?,
-                  completion: @escaping (Result<Json, NetworkError>) -> Void) -> Void
+                  completion: @escaping (Result<Json, NetworkError>) -> Void) -> Request
 }

@@ -16,14 +16,13 @@ class Network: HARequestable, HAResponsable {
         self.manager = session
     }
     
-    func request(router: URLRequestConvertible, completion: @escaping (Result<Json, NetworkError>) -> Void) {
-        self.request(router: router, adapter: nil, completion: completion)
+    func request(router: URLRequestConvertible, completion: @escaping (Result<Json, NetworkError>) -> Void) -> Request {
+        return self.request(router: router, adapter: nil, completion: completion)
     }
     
-    func request(router: URLRequestConvertible, adapter: RequestAdapter?, completion: @escaping (Result<Json, NetworkError>) -> Void) {
-        
+    func request(router: URLRequestConvertible, adapter: RequestAdapter?, completion: @escaping (Result<Json, NetworkError>) -> Void) -> Request {
         manager.sessionManager.adapter = adapter
-        manager.sessionManager
+        return manager.sessionManager
             .request(router)
             .validate(statusCode: 200..<300)
             .responseJSON(completionHandler: { [weak self] (response) in
@@ -31,8 +30,8 @@ class Network: HARequestable, HAResponsable {
             })
     }
     
-    func request(_ url: URL, method: HTTPMethod, parameters: [String : Any]?, headers: [String : String]?, completion: @escaping (Result<Json, NetworkError>) -> Void) {
-        manager.sessionManager
+    func request(_ url: URL, method: HTTPMethod, parameters: [String : Any]?, headers: [String : String]?, completion: @escaping (Result<Json, NetworkError>) -> Void) -> Request {
+        return manager.sessionManager
             .request(url,
                      method: method,
                      parameters: parameters,

@@ -11,7 +11,7 @@ import Alamofire
 
 class NetworkSessionManager: SessionManager {
     
-    let manager = NetworkReachabilityManager(host: "www.apple.com")
+    let reachability = NetworkReachabilityManager(host: "www.apple.com")
     
     var reachable: Bool = true
     
@@ -24,14 +24,13 @@ class NetworkSessionManager: SessionManager {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
         configuration.timeoutIntervalForRequest = 30
-        let sessionManager = Alamofire.SessionManager(configuration: configuration)
         
-        return sessionManager        
+        return Alamofire.SessionManager(configuration: configuration)
     }()
     
     init() {
         super.init()
-        manager?.listener = { [weak self] status in
+        reachability?.listener = { [weak self] status in
             switch status {
             case .notReachable, .unknown:
                 self?.reachable = false
@@ -42,7 +41,7 @@ class NetworkSessionManager: SessionManager {
                 }
             }
         }
-        manager?.startListening()
+        reachability?.startListening()
     }
 }
 
